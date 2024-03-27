@@ -1,0 +1,23 @@
+.spc {
+    border: 1px navy dashed;
+    margin-bottom: 5px;
+    padding: 5px;
+}
+
+.flex-container {
+    display: inline-flex;
+}
+
+.formField {
+    font-weight: bold;
+    margin: 5px;
+}
+
+.leaveMeAlone {
+    margin-right: 5px;
+}
+
+.itemName {
+    font-weight: bold;
+    margin-right: 5px;
+}

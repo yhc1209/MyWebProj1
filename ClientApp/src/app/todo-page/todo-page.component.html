@@ -1,0 +1,105 @@
+<p>todo-page works!</p>
+<div class="spc">
+    <h1>Menu 測試</h1>
+    <button mat-button [matMenuTriggerFor]="mainMenu">
+        <mat-icon aria-label="menu">menu</mat-icon>
+        Menu
+    </button>
+    <mat-menu #mainMenu="matMenu">
+        <button mat-menu-item [matMenuTriggerFor]="subMenu1">子選單1</button>
+        <button mat-menu-item [matMenuTriggerFor]="subMenu2">子選單2</button>
+        <button mat-menu-item (click)="hint()">彈出</button>
+        <!-- <button mat-menu-item (click)="openDialog()">對話盒測試</button> -->
+        <button mat-menu-item [routerLink]="['/wave']">wave頁面</button>
+        <button mat-menu-item [routerLink]="['/member']">member頁面</button>
+    </mat-menu>
+    <mat-menu #subMenu1="matMenu">
+        <button mat-menu-item>function 1-1</button>
+        <button mat-menu-item>function 1-2</button>
+    </mat-menu>
+    <mat-menu #subMenu2="matMenu">
+        <button mat-menu-item>function 2-1</button>
+        <button mat-menu-item>function 2-2</button>
+    </mat-menu>
+</div>
+<div class="spc">
+    <h1>Radio Button 測試</h1>
+    <mat-radio-group aria-label="Select an option">
+        <mat-radio-button value="1">Option 1</mat-radio-button>
+        <mat-radio-button value="2">Option 2</mat-radio-button>
+        <mat-radio-button value="3">Option 3</mat-radio-button>
+        <mat-radio-button value="4">Option 4</mat-radio-button>
+    </mat-radio-group>
+</div>
+<div class="spc">
+    <h2>Form 測試</h2>
+    <form #form="ngForm" (ngSubmit)="submitForm1(form.value)">
+        <div>
+            <label class="formField">姓</label>
+            <input type="text" name="familyName" ngModel required>
+        </div>
+        <div>
+            <label class="formField">名</label>
+            <input type="text" name="givenName" ngModel required>
+        </div>
+        <div>
+            <label class="formField">性別</label>
+            <input id="gBoy" type="radio" name="gender" value="男生" ngModel>
+            <label for="gBoy">男生</label>
+            <input id="gGirl" type="radio" name="gender" value="女生" ngModel>
+            <label for="gGirl">女生</label>
+        </div>
+        <label class="formField">三項</label>
+        <input id="biking" type="checkbox" value="biking" name="biking" ngModel> 
+        <label for="biking">自行車</label>
+        <input id="swimming" type="checkbox" value="swimming" name="swimming" ngModel> 
+        <label for="swimming">游泳</label>
+        <input id="running" type="checkbox" value="running" name="running" ngModel>
+        <label for="running">跑步</label>
+        <button type="submit" class="btn btn-secondary">Submit</button>
+    </form>
+</div>
+<div class="spc">
+    <h1>API 測試</h1>
+    <div class="flex-container">
+        <input class="leaveMeAlone" [(ngModel)]="theWord" placeholder="請輸入要查詢的字詞"/>
+        <button class="btn btn-primary" (click)="fetchData()">查字典</button>
+        <button class="btn btn-secondary" (click)="reset()">清除</button>
+    </div>
+    <!-- <p *ngIf="!FetchResult">啥也不是。</p> -->
+    <div *ngIf="showResult && FetchResult">
+        <h3>{{ FetchResult.title }}</h3>
+        <!-- <p>radical: {{ FetchResult.radical }}</p> -->
+        <div *ngIf="FetchResult.heteronyms?.length">
+            <p class="leaveMeAlone"><span class="itemName">注音:</span>{{ FetchResult.heteronyms[0].bopomofo }}</p>
+            <p class="leaveMeAlone"><span class="itemName">注音2:</span>{{ FetchResult.heteronyms[0].bopomofo2 }}</p>
+            <p class="leaveMeAlone"><span class="itemName">拼音:</span>{{ FetchResult.heteronyms[0].pinyin }}</p>
+            <div *ngFor="let def of FetchResult.heteronyms[0].definitions" class="spc">
+                <p *ngIf="def.type"><span class="itemName">詞性：</span>{{ def.type }}</p>
+                <p *ngIf="def.def"><span class="itemName">意義：</span><br>{{ def.def }}</p>
+                <p *ngIf="def.synonyms"><span class="itemName">近義詞：</span>{{ def.synonyms }}</p>
+                <p *ngIf="def.antonyms"><span class="itemName">反義詞：</span>{{ def.antonyms }}</p>
+                <div *ngIf="def.quote?.length">
+                    <p><span class="itemName">典故：</span></p>
+                    <p *ngFor="let qut of def.quote">{{ qut }}</p>
+                </div>
+                <div *ngIf="def.example?.length">
+                    <p *ngFor="let emp of def.example">{{ emp }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="spc">
+    <h1>in-line 測試</h1>
+    <div class="flex-container">
+        <button class="btn btn-secondary">btn 1</button>
+        <button class="btn btn-secondary">btn 2</button>
+        <button class="btn btn-secondary">btn 3</button>
+    </div>
+</div>
+<div class="spc">
+    <h1>Progress Bar 測試</h1>
+    <mat-progress-bar mode="determinate" value="{{ Progress }}"></mat-progress-bar>
+    <button class="btn btn-primary" (click)="work4progress()">趕進度</button>
+</div>
