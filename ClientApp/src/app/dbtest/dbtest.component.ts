@@ -8,6 +8,37 @@ interface TheMember {
   gender: number;
   remark: string;
 }
+interface GetMemberRsp {
+  name: string;
+  action: string;
+  code: number;
+  message: string;
+  objects: TheMember[];
+}
+
+class GetMemberReq {
+  name: string;
+  action: string;
+  objects: ClientInfo[];
+
+  constructor(clnInfo: ClientInfo) {
+    this.name = "TheMemberService";
+    this.action = "getMembers";
+    this.objects = [ clnInfo ];
+  }
+}
+class ClientInfo {
+  machineName: string;
+  account: string;
+  pwHash: string;
+
+  constructor() {
+    this.machineName = "yhc's computer";
+    this.account = "yhc";
+    this.pwHash = "i20sdzfk32sg4302iejslg2";
+  }
+}
+
 const CONST_MEMBER_DATA: TheMember[] = [
   { id: 0, name: "Jack Jerk", age: 33, gender: 1, remark: "normal person." },
   { id: 1, name: "Leo Loner", age: 30, gender: 1, remark: "mental issue." },
@@ -26,6 +57,7 @@ export class DBtestComponent {
   private hostUrl: string = "";
   constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.hostUrl = baseUrl;
+    console.log(this.hostUrl);
   }
 
   public readonly DisplayedColumns: string[] = ['identifier', 'name', 'gender', 'age', 'remark'];
@@ -48,6 +80,27 @@ export class DBtestComponent {
     this.http.get<TheMember[]>(this.hostUrl + "api/member/sample").subscribe(
       res => {
         this.dataSource = res;
+      },
+      err => {
+        this.dataSource = [];
+        console.log(err);
+      }
+    )
+  }
+  public GetDataFromCs(): void {
+    let clnInfo: ClientInfo = new ClientInfo();
+    let req: GetMemberReq = new GetMemberReq(clnInfo);
+    console.log(req);
+    this.http.post<GetMemberRsp>(this.hostUrl + "api/member/getMembers", req).subscribe(
+      res => {
+        if (res.code == 0)
+          this.dataSource = res.objects;
+        else
+        {
+          this.dataSource = [];
+          console.warn(`error code: ${res.code}`);
+          console.warn(`message: ${res.message}`);
+        }
       },
       err => {
         this.dataSource = [];

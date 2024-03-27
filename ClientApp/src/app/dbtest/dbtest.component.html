@@ -37,7 +37,8 @@
 <mat-card>
     <mat-card-content>
         <button class="btn btn-primary" (click)="GetSampleDataFromTs()">從前端取得sample資料</button>
-        <button class="btn btn-primary" (click)="GetSampleDataFromCs()">從後端取得sample資料</button>
+        <!-- <button class="btn btn-primary" (click)="GetSampleDataFromCs()">從後端取得sample資料</button> -->
+        <button class="btn btn-primary" (click)="GetDataFromCs()">從後端取得sample資料</button>
         <p *ngIf="!DataSource?.length">目前沒有資料。</p>
         <table *ngIf="DataSource?.length" mat-table [dataSource]="DataSource" class="mat-elevation-z8">
             <!-- identifier Column -->
