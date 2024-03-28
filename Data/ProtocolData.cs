@@ -22,6 +22,7 @@ public class ResponseBase<T> : ProtocolBase
 }
 
 // ---------------------------------------------------------------------
+#region 取得所有成員資料
 public class RqstGetMembers: RequestBase<IdInfo>
 {
     public const string ACTION = "getMembers";
@@ -29,15 +30,12 @@ public class RqstGetMembers: RequestBase<IdInfo>
     {
         if (this.name != ProtocolBase.SERVICE_NAME)
             throw new Exception("Wrong service name.");
-        if (this.action != RqstGetMembers.ACTION)
+        if (this.action != ACTION)
             throw new Exception("Wrong action name.");
         if (this.objects?.Length > 0)
         {
-            IdInfo info = this.objects[0];
-            if (String.IsNullOrWhiteSpace(info.account))
-                throw new Exception("Client account was not specified.");
-            if (String.IsNullOrWhiteSpace(info.pwHash))
-                throw new Exception("Client password was not specified.");
+            if (!this.objects[0].Validate(out string reason))
+                throw new Exception(reason);
         }
         else
             throw new Exception("IdInfo was not specified.");
@@ -53,3 +51,38 @@ public class RespGetMembers: ResponseBase<TheMember>
         action = RqstGetMembers.ACTION;
     }
 }
+#endregion
+
+#region 新增成員資料
+public class RqstNewMember: RequestBase<MO_NewMember>
+{
+    public const string ACTION = "newMember";
+    public void RequestValidation()
+    {
+        if (this.name != ProtocolBase.SERVICE_NAME)
+            throw new Exception("Wrong service name.");
+        if (this.action != ACTION)
+            throw new Exception("Wrong action name.");
+        if (this.objects?.Length > 0)
+        {
+            MO_NewMember data = this.objects[0];
+            if (!data.info.Validate(out string reason))
+                throw new Exception(reason);
+            if (data.member == null)
+                throw new Exception("The member info to new was not specified.");
+        }
+        else
+            throw new Exception("IdInfo was not specified.");
+    }
+}
+
+public class RespNewMember: ResponseBase<object>
+{
+    [SetsRequiredMembers]
+    public RespNewMember()
+    {
+        name = ProtocolBase.SERVICE_NAME;
+        action = RqstNewMember.ACTION;
+    }
+}
+#endregion
