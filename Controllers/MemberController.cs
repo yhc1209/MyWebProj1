@@ -24,7 +24,7 @@ public class MemberController : ControllerBase
     [HttpGet("sample")]
     public IEnumerable<TheMember> GetSampleData()
     {
-        _logger.LogInformation($"[GetSampleData] ----------------------");
+        _logger.LogInformation($"[GetSampleData] ----------------------------------");
         return SAMPLE_DATA;
     }
 
@@ -54,11 +54,12 @@ public class MemberController : ControllerBase
     [HttpPost("newMember")]
     public async Task<RespNewMember> NewMemberData(RqstNewMember request)
     {
+        _logger.LogInformation($"[NewMemberData] got request!");
         RespNewMember response = new RespNewMember();
         response.objects = Array.Empty<object>();
         try
         {
-            _logger.LogInformation($"[NewMemberData] got request!");
+            _logger.LogInformation($"[NewMemberData] before request validation.");
             request.RequestValidation();
             _logger.LogInformation($"[NewMemberData] passed request validation.");
             if (await TheMemberDB.NewMember(request.objects[0].member))

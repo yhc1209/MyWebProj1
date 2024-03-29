@@ -6,9 +6,9 @@ namespace myWebProj1.Data;
 /// </summary>
 public class TheMember
 {
-    public required int id { get; set; }
-    public required string name { get; set; }
-    public required int age { get; set; }
+    public int id { get; set; }
+    public string name { get; set; }
+    public int age { get; set; }
     public MemberGender gender { get; set; }
     public string remark { get; set; }
 

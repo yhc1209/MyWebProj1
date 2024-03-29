@@ -13,11 +13,11 @@
             <div class="formField">
                 <label>性別</label>
                 <label for="memberMale">男</label>
-                <input id="memberMale" type="radio" name="gender" value="1" ngModel required>
+                <input id="memberMale" type="radio" name="gender" [value]="1" ngModel required>
                 <label for="memberFemale">女</label>
-                <input id="memberFemale" type="radio" name="gender" value="2" ngModel required>
+                <input id="memberFemale" type="radio" name="gender" [value]="2" ngModel required>
                 <label for="memberNan">不清楚</label>
-                <input id="memberNan" type="radio" name="gender" value="0" ngModel required>
+                <input id="memberNan" type="radio" name="gender" [value]="0" ngModel required>
             </div>
             <div class="formField">
                 <label for="memberAge">年齡</label>
@@ -38,7 +38,7 @@
     <mat-card-content>
         <button class="btn btn-primary" (click)="GetSampleDataFromTs()">從前端取得sample資料</button>
         <!-- <button class="btn btn-primary" (click)="GetSampleDataFromCs()">從後端取得sample資料</button> -->
-        <button class="btn btn-primary" (click)="GetDataFromCs()">從後端取得sample資料</button>
+        <button class="btn btn-primary" (click)="GetDataFromCs()">從後端取得database資料</button>
         <p *ngIf="!DataSource?.length">目前沒有資料。</p>
         <table *ngIf="DataSource?.length" mat-table [dataSource]="DataSource" class="mat-elevation-z8">
             <!-- identifier Column -->
