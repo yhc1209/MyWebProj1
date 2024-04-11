@@ -5,9 +5,9 @@ namespace myWebProj1.Data;
 /// </summary>
 public class IdInfo
 {
-    public string machineName { get; set; }
-    public string account { get; set; }
-    public string pwHash { get; set; }
+    public string? machineName { get; set; }
+    public string? account { get; set; }
+    public string? pwHash { get; set; }
 
     public bool Validate(out string reason)
     {

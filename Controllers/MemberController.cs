@@ -62,7 +62,7 @@ public class MemberController : ControllerBase
             _logger.LogInformation($"[NewMemberData] before request validation.");
             request.RequestValidation();
             _logger.LogInformation($"[NewMemberData] passed request validation.");
-            if (await TheMemberDB.NewMember(request.objects[0].member))
+            if (await TheMemberDB.NewMember(request.objects?[0].member))
             {
                 response.code = 0;
                 response.message = "Successfull.";

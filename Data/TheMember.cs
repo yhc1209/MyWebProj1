@@ -6,11 +6,11 @@ namespace myWebProj1.Data;
 /// </summary>
 public class TheMember
 {
-    public int id { get; set; }
-    public string name { get; set; }
-    public int age { get; set; }
-    public MemberGender gender { get; set; }
-    public string remark { get; set; }
+    public int id { get; set; } = -1;
+    public string name { get; set; } = "";
+    public int age { get; set; } = 0;
+    public MemberGender gender { get; set; } = MemberGender.NotSure;
+    public string remark { get; set; } = "";
 
     public TheMember() {}
 

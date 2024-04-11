@@ -11,14 +11,14 @@ public class ProtocolBase
 
 public class RequestBase<T> : ProtocolBase
 {
-    public T[] objects { get; set; }
+    public T[]? objects { get; set; }
 }
 
 public class ResponseBase<T> : ProtocolBase
 {
-    public T[] objects { get; set; }
+    public T[]? objects { get; set; }
     public int code { get; set; }
-    public string message { get; set; }
+    public string? message { get; set; }
 }
 
 // ---------------------------------------------------------------------
@@ -66,6 +66,8 @@ public class RqstNewMember: RequestBase<MO_NewMember>
         if (this.objects?.Length > 0)
         {
             MO_NewMember data = this.objects[0];
+            if (data.info == null)
+                throw new NullReferenceException("The information of operator was not provided.");
             if (!data.info.Validate(out string reason))
                 throw new Exception(reason);
             if (data.member == null)
